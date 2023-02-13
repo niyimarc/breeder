@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Breed, Puppy, Offer, Contact, Images
+from .models import Puppy, Offer, Contact, Images, PostCategory, BlogPost, BlogImages
 # Register your models here.
 
 
@@ -7,5 +7,6 @@ from .models import Breed, Puppy, Offer, Contact, Images
 class PuppyAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
+admin.site.register(BlogPost, PuppyAdmin)
 admin.site.register(Puppy, PuppyAdmin)
-admin.site.register((Breed, Offer, Contact, Images))
+admin.site.register((Offer, Contact, Images, PostCategory, BlogImages))

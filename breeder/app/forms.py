@@ -13,3 +13,8 @@ class ContactForm(forms.ModelForm):
     class Meta():
         model = Contact
         fields = ('subject', 'message')
+
+class OfferForm(forms.ModelForm):
+    class Meta():
+        model = Offer
+        fields = ('message',)
