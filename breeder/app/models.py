@@ -83,7 +83,7 @@ BREED = (
 # Create your models here.
 class Puppy(models.Model):
     title = models.CharField(max_length =150, verbose_name = 'Puppy Name')
-    slug = models.SlugField(max_length=200, unique=True, blank = True, null = True)
+    slug = models.SlugField(max_length=200, unique=True)
     puppy_breed = models.CharField(max_length=29, choices=BREED, verbose_name="Breed")
     banner = models.ImageField(upload_to="puppy/banner", verbose_name = 'Puppy Featured Image')
     dob = models.DateField()
@@ -103,7 +103,7 @@ class Puppy(models.Model):
         return self.title
 
 class Images(models.Model):
-    puppy = models.ForeignKey(Puppy, on_delete=models.CASCADE, null=True, blank=True, related_name='images')
+    puppy = models.ForeignKey(Puppy, on_delete=models.CASCADE, related_name='images', null=True, blank=True)
     images = models.ImageField(upload_to="puppy/images")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -126,6 +126,7 @@ class Contact(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length = 150, verbose_name = "Subject")
     message = models.TextField(verbose_name = "Contact Message")
+    created_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.subject
 
@@ -156,7 +157,6 @@ class Profile(models.Model):
 # Create a model for the post categories 
 class PostCategory(models.Model):
     category_name = models.CharField(max_length = 150, verbose_name = 'Category name')
-    category_description = models.TextField(verbose_name = 'Description', blank = True, null = True)
     def __str__(self):
         return self.category_name
 
@@ -166,7 +166,7 @@ class BlogPost(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     post_author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name= 'Author')
     post_category = models.ForeignKey(PostCategory, on_delete = models.CASCADE, verbose_name = 'Post Category')
-    post_img = models.ImageField(blank = True, null = True, verbose_name = 'Post Featured Image')
+    post_img = models.ImageField(verbose_name = 'Post Featured Image')
     created_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     post_contents = models.TextField(verbose_name = 'Post Contents')
@@ -183,3 +183,28 @@ class BlogImages(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     class Meta:
         ordering  = ['-created_date']
+
+class Appointment(models.Model):
+    full_name = models.CharField(max_length=250, verbose_name="Full Name")
+    email = models.EmailField()
+    phone = models.CharField(max_length=13)
+    service_type = models.CharField(max_length = 50, verbose_name = "Subject")
+    message = models.TextField(verbose_name = "Contact Message")
+    created_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.full_name
+
+class Newsletter(models.Model):
+    email = models.EmailField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.email
+
+class AnonymousContact(models.Model):
+    full_name = models.CharField(max_length=250, verbose_name="Full Name")
+    email = models.EmailField()
+    subject = models.CharField(max_length = 150, verbose_name = "Subject")
+    message = models.TextField(verbose_name = "Contact Message")
+    created_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.full_name

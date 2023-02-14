@@ -1,0 +1,43 @@
+{% extends "app/main/base.html" %} {% load static %} 
+{% block title %} Home {%endblock %} 
+{% block content %}
+
+{% include "app/main/includes/hero.html" %}  
+<section class="w3l-teams-15">
+	<div class="team-single-main editContent">
+		<div class="container">
+			<div class="row">
+				<div class="column2 col-lg-6">
+					<img src="{% static 'app/main/images/5.jpg' %}" alt="product" class="img-responsive ">
+				</div>
+				<div class="column2 image-text col-lg-6">
+					<h3 class="team-head editContent">We will make them <span class="color-text editContent">truly happy.</span></h3>
+					<p class="para editContent text ">
+						Mollitia placeat modi explicabo volup tatum corporis unde Dicta, provi dent!
+						Rem adipisci Mollitia placeat modi expl icabo volup tatum corporis unde Dicta, provi dent.</p>
+					<div class="pet-animals">
+						<div class="pet-grid one-img">
+							<h6><a href="#page">Lowest Price</a></h6>
+							<p class="para">
+							Necessi tatibus, inve ntore ad digni ssimos icabo volup tatum.
+							</p>
+					</div>
+						<div class="pet-grid two-img">
+							<h6><a href="#page">Healthy Pets</a></h6>
+							<p class="para">
+							Necessi tatibus, inve ntore ad digni ssimos icabo volup tatum.
+							</p>
+					</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% include "app/main/includes/services.html" %}
+
+{% include "app/main/includes/appointment.html" %}
+
+{% include "app/main/includes/gallery.html" %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% if puppy %}
+<section class="w3l-covers-18">
+        <div class="covers-main editContent">
+          <div class="main-titles-head text-center">
+            <h3 class="header-name editContent">
+     Pet Gallery
+            </h3>
+            <p class="tiltle-para editContent editContent">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic fuga sit illo modi aut aspernatur tempore laboriosam saepe dolores eveniet.</p>
+        </div>
+            <div class="container">
+                <div class="gallery-image">
+                {% for p in puppy%}
+                  <div class="img-box">
+                    <a href="{% url 'puppy_detail' p.slug %}"> <img src="{{ p.banner.url }}" alt="Picture of {{ p.title }}" class="img-responsive "></a>
+                   
+                      <div class="caption">
+                        <h6><a href="{% url 'puppy_detail' p.slug %}">{{ p.title }}</a></h6>
+                        <p class="para">{{ p.description|slice:100 }}</p>
+                      </div>
+                  </div>
+                {% endfor %}
+
+                  
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

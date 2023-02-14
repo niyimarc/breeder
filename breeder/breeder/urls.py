@@ -7,6 +7,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home, name="home"),
+    path('contact', views.contact, name="contact"),
     path('signup/', views.signup, name="signup"),
     path('dashboard', views.dashboard, name="dashboard"),
     path('list-puppy', views.ListPuppy.as_view(), name="list_puppy"),

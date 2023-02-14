@@ -1,0 +1,60 @@
+<section class="w3l-clients">
+    <div class="main-w3">
+        <div class="container">
+            <div class="apply-grids-info ">
+                    <div class="apply-gd-left ">
+                        <h3>Make an <span class="color-text editContent">Appointment</span></h3>
+                        <p class="para">Consectetur Lorem ipsum dolor sit amet adipi sicing elit. Volup tatibus adipisci perfe rendis quasi numquam excepturi, temporibus atque ipsa quis alias molestias cum deserunt voluptates, accusantium totam libero sapiente quidem! Aliquam.</p>
+                   <div class="apply-text">
+                        <div class="apply-sec-info">
+                        <h5><a href="blog-single.html">Dog Health</a></h5>
+                        <p class="para">Volupt atibus minus libero perspi ciatis tempora fugiat 
+                            labore rem id exercit ationem, optio sit facilis archi.</p>
+                             </div>
+							<div class="apply-sec-info">
+									<h5><a href="blog-single.html">Emergency Service</a></h5>
+									<p class="para">Volupt atibus minus libero perspi ciatis tempora
+                                         fugiat labore rem id exercit ationem, optio sit facilis archi.</p>
+					             </div>
+							<div class="apply-sec-info">
+									<h5><a href="blog-single.html">Nutrition Food</a></h5>
+									<p class="para">Volupt atibus minus libero perspi ciatis tempora 
+                                        fugiat labore rem id exercit ationem, optio sit facilis archi.</p>
+                                </div>
+                            </div>
+                        </div>
+					<div class="apply-form p-sm-5 p-4">
+						<form action="" method="post">
+							<div class="admission-form">
+								<div class="form-group">
+									<input type="text" name="full_name" class="form-control" placeholder="Full Name*" required="">
+								</div>
+								<div class="form-group">
+									<input type="text" name="phone" class="form-control" placeholder="Phone Number*" required="">
+								</div>
+								<div class="form-group">
+									<input type="email" name="email" class="form-control" placeholder="Email*" required="">
+								</div>
+								<select class="form-control" name="service_type">
+									<option value="Service Type">Service Type</option>
+									<option value="Ear Cleaning">Ear Cleaning</option>
+                                    <option value="Clipping Fur">Clipping Fur</option>
+                                    <option value="Brushing">Brushing</option>
+                                    <option value="Nail Trim">Nail Trim</option>
+                                    <option value="Grooming Program">Grooming Program</option>
+									<option value="Others">Others</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<textarea name="message" class="form-control" placeholder="Message*" required=""></textarea>
+                            </div>
+                            <div class="text-right">
+							{% csrf_token %}
+                            <button type="submit" class="btn btn-primary submit action-button">Submit Now</button>
+                        </div>
+						</form>
+					</div>
+				</div>
+					</div>
+				</div>
+</section>

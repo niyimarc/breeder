@@ -1,0 +1,98 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app/assets/img/logo.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'app/assets/img/logo.png' %}">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+    {% block title %}
+    
+    {% endblock title %}
+    </title>
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'app/main/css/style-starter.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:400,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  </head>
+  <body id="home">
+
+{% include "app/main/includes/nav.html" %}
+
+{% block content %}
+    
+{% endblock %}
+
+{% include "app/main/includes/footer.html" %}
+
+
+<!-- move top -->
+<button onclick="topFunction()" id="movetop" title="Go to top">
+	<span class="fa fa-eject"></span>
+</button>
+<script>
+	// When the user scrolls down 20px from the top of the document, show the button
+	window.onscroll = function () {
+		scrollFunction()
+	};
+
+	function scrollFunction() {
+		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+			document.getElementById("movetop").style.display = "block";
+		} else {
+			document.getElementById("movetop").style.display = "none";
+		}
+	}
+
+	// When the user clicks on the button, scroll to the top of the document
+	function topFunction() {
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+	}
+</script>
+<!-- /move top -->
+<script src="{% static 'app/main/js/jquery-3.3.1.min.js' %}"></script> <!-- Common jquery plugin -->
+<!--bootstrap working-->
+<script src="{% static 'app/main/js/bootstrap.min.js' %}"></script>
+<!-- //bootstrap working-->
+<!-- disable body scroll which navbar is in active -->
+<script>
+$(function () {
+  $('.navbar-toggler').click(function () {
+    $('body').toggleClass('noscroll');
+  })
+});
+</script>
+<!-- disable body scroll which navbar is in active -->
+
+  <!-- add the cdn of sweetalert to the base  -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            
+            <script>
+                swal.fire({
+                    "title": "Thank you!",
+                    "text": "{{ message }}",
+                    "icon": "success"
+                })
+            </script>
+        {% else %}
+            <script>
+                swal.fire({
+                    "title": "Sorry!",
+                    "text": "{{ message }}",
+                    "icon": "warning"
+                })
+            </script>
+        {% endif %}
+    {% endfor %}
+</body>
+
+</html>

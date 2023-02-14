@@ -1,0 +1,86 @@
+{% extends "app/main/base.html" %} {% load static %} 
+{% block title %} Blog {%endblock %} 
+{% block content %}
+<section class="w3l-inner-banner-main">
+    <div class="about-inner editContent">
+<div class="container">   
+<ul class="breadcrumbs-custom-path">
+    <li class="right-side propClone"><a href="{% url 'home' %}" class="editContent">Home <span class="fa fa-angle-right" aria-hidden="true"></span></a> <p></li>
+    <li class="active editContent">Blog</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- breadcrumbs //-->
+<section class="w3l-recent-work-hobbies" id="services"> 
+    <div class="recent-work editContent">
+        <div class="container">
+            {% if list_posts %}
+            <div class="row about-about">
+                {% for p in list_posts %}
+                <div class="col-lg-4 col-md-6 col-sm-6 propClone about-line-top">
+                    <div class="pet-grid-row">
+                        <img src="{{ p.post_img.url }}" alt="product" class="img-responsive about-me">
+                        <div class="about-grids editContent">
+                            <h5><a href="{% url 'puppy_detail' p.slug %}" class="editContent">{{ p.title }}</a></h5>
+                            <p class="para editContent">{{ p.post_contents|slice:100 }} </p>
+                        </div>
+                    </div>
+                </div> 
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<section class="w3l-services-two" id="services">
+    <div class="service-single-page editContent">
+        <div class="container">
+            <div class=" service-treat">
+
+<div class="service-pet">
+    <div class="image-grid">
+        <img src="assets/images/f6.jpg" alt="product" class="img-responsive about-me">
+    </div>
+    <div class="pet-animals">
+        <h4><a href="#page">Bath, Dry &
+            Bursh</a></h4>
+            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
+        </div>
+</div>
+<div class="service-pet">
+    <div class="image-grid">
+        <img src="assets/images/f1.jpg" alt="product" class="img-responsive about-me">
+    </div>
+    <div class="pet-animals">
+        <h4><a href="#page">Pets Full
+            Grooming</a></h4>
+            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
+        </div>
+</div>
+<div class="service-pet">
+    <div class="image-grid">
+        <img src="assets/images/f9.jpg" alt="product" class="img-responsive about-me">
+    </div>
+    <div class="pet-animals">
+        <h4><a href="#page">Styling Your
+            Pets</a></h4>
+            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
+        </div>
+</div>
+<div class="service-pet">
+    <div class="image-grid">
+        <img src="assets/images/f8.jpg" alt="product" class="img-responsive about-me">
+    </div>
+    <div class="pet-animals">
+        <h4><a href="#page">Pets Cleaning
+            & Plucking</a></h4>
+            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
+        </div>
+</div>
+
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}
