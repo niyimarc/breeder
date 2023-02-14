@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 STATUS = (
@@ -148,11 +150,21 @@ class Apply(models.Model):
         return self.phone
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=13, verbose_name="Phone Number")
     address = models.CharField(max_length=200, verbose_name="Home Address")
     def __str__(self):
         return self.phone
+
+# Basically I'm hooking the create_user_profile and save_user_profile methods to the User model, whenever a save event occurs. 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 # Create a model for the post categories 
 class PostCategory(models.Model):
@@ -177,10 +189,11 @@ class BlogPost(models.Model):
         return self.title
 
 class BlogImages(models.Model):
-    puppy = models.ForeignKey(BlogPost, on_delete=models.CASCADE, null=True, blank=True)
+    puppy = models.ForeignKey(BlogPost, on_delete=models.CASCADE, null=True, blank=True, related_name='images',)
     images = models.ImageField(upload_to="blog/images")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
     class Meta:
         ordering  = ['-created_date']
 

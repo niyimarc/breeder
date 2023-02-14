@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact, Offer, Appointment, Newsletter, AnonymousContact
+from .models import Contact, Offer, Appointment, Newsletter, AnonymousContact, Profile
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
@@ -33,3 +33,11 @@ class AnonymousContactForm(forms.ModelForm):
     class Meta():
         model = AnonymousContact
         fields = ('full_name', 'email', 'subject', 'message')
+
+class ProfileForm(forms.ModelForm):
+    
+    address = forms.CharField(required=False)
+    phone = forms.CharField(required=False)
+    class Meta():
+        model = Profile
+        fields = ('phone', 'address',)

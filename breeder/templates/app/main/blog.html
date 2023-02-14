@@ -16,13 +16,16 @@
     <div class="recent-work editContent">
         <div class="container">
             {% if list_posts %}
+            <div class="mb-5 text-center">
+                    <h2>Recent Blog Post</h2>
+                </div>
             <div class="row about-about">
                 {% for p in list_posts %}
                 <div class="col-lg-4 col-md-6 col-sm-6 propClone about-line-top">
                     <div class="pet-grid-row">
                         <img src="{{ p.post_img.url }}" alt="product" class="img-responsive about-me">
                         <div class="about-grids editContent">
-                            <h5><a href="{% url 'puppy_detail' p.slug %}" class="editContent">{{ p.title }}</a></h5>
+                            <h5><a href="{% url 'post_detail' p.slug %}" class="editContent">{{ p.title }}</a></h5>
                             <p class="para editContent">{{ p.post_contents|slice:100 }} </p>
                         </div>
                     </div>
@@ -33,54 +36,31 @@
         </div>
     </div>
 </section>
+{% if puppy_list %}
 <section class="w3l-services-two" id="services">
     <div class="service-single-page editContent">
         <div class="container">
+            <div class="mb-5 text-center">
+                <h2>Puppy Available for Pickup</h2>
+            </div>
             <div class=" service-treat">
-
-<div class="service-pet">
-    <div class="image-grid">
-        <img src="assets/images/f6.jpg" alt="product" class="img-responsive about-me">
-    </div>
-    <div class="pet-animals">
-        <h4><a href="#page">Bath, Dry &
-            Bursh</a></h4>
-            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
+            {% for p in puppy_list %}
+                <div class="service-pet">
+                
+                    <div class="image-grid">
+                        <img src="{{ p.banner.url }}" alt="{{p.title}}" height="200px" class="img-responsive about-me">
+                    </div>
+                    <div class="pet-animals">
+                        <h4><a href="{% url 'puppy_detail' p.slug %}">{{p.title}}</a></h4>
+                            <p class="para">{{p.description |slice:100}}</p>
+                    </div>
+                    
+                </div>
+            {% endfor %}
         </div>
-</div>
-<div class="service-pet">
-    <div class="image-grid">
-        <img src="assets/images/f1.jpg" alt="product" class="img-responsive about-me">
-    </div>
-    <div class="pet-animals">
-        <h4><a href="#page">Pets Full
-            Grooming</a></h4>
-            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
-        </div>
-</div>
-<div class="service-pet">
-    <div class="image-grid">
-        <img src="assets/images/f9.jpg" alt="product" class="img-responsive about-me">
-    </div>
-    <div class="pet-animals">
-        <h4><a href="#page">Styling Your
-            Pets</a></h4>
-            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
-        </div>
-</div>
-<div class="service-pet">
-    <div class="image-grid">
-        <img src="assets/images/f8.jpg" alt="product" class="img-responsive about-me">
-    </div>
-    <div class="pet-animals">
-        <h4><a href="#page">Pets Cleaning
-            & Plucking</a></h4>
-            <p class="para">Voluptas commodi quae accusantium amet dolorum quia architecto assumenda id facere dolorem ex fugiat.</p>
-        </div>
-</div>
-
-        </div>
+        
     </div>
     </div>
 </section>
+{% endif %}
 {% endblock %}

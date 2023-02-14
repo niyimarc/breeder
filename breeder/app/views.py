@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import RegForm, ContactForm, OfferForm, AppointmentForm, NewsletterForm, AnonymousContactForm
+from .forms import RegForm, ContactForm, OfferForm, AppointmentForm, NewsletterForm, AnonymousContactForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -25,7 +25,7 @@ def signup(request):
         if regform.is_valid():
             regform.save(commit=True)
             messages.success(request, "Account successfully created!")
-            return redirect("home")
+            return redirect("login")
     else:
         regform = RegForm()
         messages.error(request, "Account not created!")
@@ -106,12 +106,18 @@ def dashboard(request):
             messages.error(request, "Message not submitted! Please fill out all fields correctly")
     else:
         contactform = ContactForm()
-    return render(request, "app/dashboard.html", {'current_user': current_user, 'puppy': puppy, 'post': post,})
 
-# def litters(request):
-#     current_user = request.user
-#     puppy = Puppy.objects.filter(status="Available").order_by('-created_date')[:4]
-#     return render(request, "app/litters.html", {'current_user': current_user, 'puppy': puppy})
+    if request.method == "POST":
+        profileform = ProfileForm(request.POST, instance=request.user.profile)
+        if profileform.is_valid():
+            profileform.save()
+            messages.success(request, "Profile Edited Successfully!")
+            return HttpResponseRedirect('/dashboard')
+        else:
+            messages.error(request, "Profile not edited!")
+    else:
+        profileform = ProfileForm(instance=request.user.profile)
+    return render(request, "app/dashboard.html", {'current_user': current_user, 'puppy': puppy, 'post': post,})
 
 class ListPuppy(ListView):
     model = Puppy
@@ -149,12 +155,26 @@ def puppy_detail(request, slug):
 def post_detail(request, slug):
     template_name = 'app/detail_post.html'
     post = get_object_or_404(BlogPost, slug=slug)
+    images = post.images.filter(active=True)
+    new_image = None
     current_user = request.user
     return render(request, template_name, {'post': post,
-                                           'current_user': current_user,})
+                                           'current_user': current_user,
+                                           'images': images,
+                                           'new-image': new_image})
     
 class ListPost(ListView):
     model = BlogPost
-    queryset = BlogPost.objects.all().order_by('-created_date')
     template_name = 'app/main/blog.html'
     context_object_name = 'list_posts'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListPost, self).get_context_data(**kwargs)
+        context.update({
+            'puppy_list': Puppy.objects.filter(status="Available").order_by('-created_date')[:4],
+            # 'more_context': Model.objects.all(),
+        })
+        return context
+
+    def get_queryset(self):
+        return BlogPost.objects.all().order_by('-created_date')
