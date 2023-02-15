@@ -79,7 +79,11 @@ $(function () {
             
             <script>
                 swal.fire({
+                    {% if user.is_authenticated %}
+                    "title": "Thank you! {{user.get_full_name}}",
+                    {% else %}
                     "title": "Thank you!",
+                    {% endif %}
                     "text": "{{ message }}",
                     "icon": "success"
                 })

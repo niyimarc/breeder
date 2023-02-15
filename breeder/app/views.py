@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import RegForm, ContactForm, OfferForm, AppointmentForm, NewsletterForm, AnonymousContactForm, ProfileForm
+from .forms import RegForm, ContactForm, OfferForm, AppointmentForm, NewsletterForm, AnonymousContactForm, ProfileForm, ApplyForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -70,6 +70,7 @@ def contact(request):
         if anonymouscontactform.is_valid():
             anonymouscontactform.save()
             messages.success(request, "Appointment successfully submitted!")
+            
             return HttpResponseRedirect('/contact')
         else:
             messages.error(request, "Appointment not submitted! Please fill out all fields correctly")
@@ -133,6 +134,7 @@ def puppy_detail(request, slug):
     new_image = None
     current_user = request.user
  
+#  submit the OfferForm 
     if request.method == 'POST':
         offer_form = OfferForm(data=request.POST)
         if offer_form.is_valid():  
@@ -146,9 +148,25 @@ def puppy_detail(request, slug):
             messages.error(request, "Offer not submitted.")         
     else:
         offer_form = OfferForm()
+
+# submit the ApplyForm 
+    if request.method == 'POST':
+        apply_form = ApplyForm(data=request.POST)
+        if apply_form.is_valid():  
+            new_apply = apply_form.save(commit=False)  
+            new_apply.puppy = puppy
+            new_apply.user = current_user
+            new_apply.save()       
+            messages.success(request, "Application successfully submitted!")
+            return HttpResponseRedirect('/puppy_detail/' + puppy.slug )
+        else:
+            messages.error(request, "Application not submitted.")         
+    else:
+        apply_form = ApplyForm()
     return render(request, template_name, {'puppy': puppy,
                                            'current_user': current_user,
                                            'offer_form': offer_form,
+                                           'apply_form': apply_form,
                                            'images': images,
                                            'new-image': new_image})
 
@@ -178,3 +196,4 @@ class ListPost(ListView):
 
     def get_queryset(self):
         return BlogPost.objects.all().order_by('-created_date')
+

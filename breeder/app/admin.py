@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Puppy, Offer, Contact, Images, PostCategory, BlogPost, BlogImages, Appointment, Newsletter, Profile
+from .models import Puppy, Offer, Contact, Images, PostCategory, BlogPost, BlogImages, Appointment, Newsletter, Profile, Apply
 # Register your models here.
 
 
@@ -9,4 +9,4 @@ class PuppyAdmin(admin.ModelAdmin):
 
 admin.site.register(BlogPost, PuppyAdmin)
 admin.site.register(Puppy, PuppyAdmin)
-admin.site.register((Offer, Contact, Images, PostCategory, BlogImages, Appointment, Newsletter, Profile))
+admin.site.register((Offer, Contact, Images, PostCategory, BlogImages, Appointment, Newsletter, Profile, Apply))

@@ -47,8 +47,8 @@
     <div class="map-content-9 mt-5">
         <form action="" method="post">
             <div class="twice-two">
-                <input type="text" class="form-control" name="full_name" id="w3lName" placeholder="Name" required="">
-                <input type="email" class="form-control" name="email" id="w3lSender" placeholder="Email" required="">
+                <input type="text" {% if user.is_authenticated %} value="{{user.get_full_name}}" readonly {% endif %} class="form-control" name="full_name" id="w3lName" placeholder="Enter Full Name" required="">
+                <input type="email" {% if user.is_authenticated %} value="{{current_user.email}}" readonly {% endif %} class="form-control" name="email" id="w3lSender" placeholder="Email" required="">
             </div>
             <div class="twice">
                 <input type="text" class="form-control" name="subject" id="w3lSubject" placeholder="Subject" required="">
